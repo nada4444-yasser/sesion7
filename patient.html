@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="task7\f.css">
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar-brand {
+      font-size: 1.6rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #343a40;
+    }
+
+    #allproducts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .imag {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .name {
+      font-weight: bold;
+      color: #212529;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .container{
+        background-color: #212529;
+        color: #ddd;
+    }
+    .add-btn{
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <a class="navbar-brand fw-bold" href="#">🛍 My Shop</a>
+        <div id="navLinks" class="d-flex align-items-center gap-2">
+            <a href="index.html" class="btn btn-outline-light">Products</a>
+            <a href="ca0rd.html" class="btn btn-outline-light">Cart</a>
+            <a href="account.html" class="btn btn-outline-light">Account</a>
+        </div>
+          
+    </div>
+    </nav>
+    
+    <h1>
+        Avilable Medical services
+    </h1>
+    <div id="allproducts"></div>
+   </body>
+<script>
+    
+    var cards = document.getElementById("allproducts");
+    fetch('https://abubakr3800.github.io/api-data/hospital.json')
+        .then(response => response.json())
+        .then(products => {
+            var services = products.services;
+            for (let i = 0; i < services.length; i++) {
+
+                var div = document.createElement("div");
+                div.classList.add("card")
+                div.innerHTML = `<img src="${services[i].image} " alt="Product image" class="imag">
+                <p class="name">${services[i].name}</p>
+                <p class="price">${services[i].price}EGP</p>
+            
+                <button class="add-btn">  Add </button>
+            
+            `;
+              const btn = div.querySelector(".add-btn");
+          btn.addEventListener("click", () => {
+            alert(`+ ${service.name} at ${service.location} added to cart.`);
+          });
+
+                cards.appendChild(div);
+            }
+          
+      
+        }).catch(error => console.error('Error:', error));
+</script>
+
+</html>
